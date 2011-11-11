@@ -1,5 +1,5 @@
 libthai (0.1.16) unstable; urgency=low
 
-  * Initial Release.
+  * Fixes: NB#290640 - Libthai and libdatrie must be added to all the configurations providing Thai language
 
- -- unknown <ayanes@unknown>  Mon, 07 Nov 2011 14:25:06 +0200
+ -- Adrian Yanes <ext-adrian.yanes@nokia.com>  Mon, 07 Nov 2011 14:25:06 +0200
