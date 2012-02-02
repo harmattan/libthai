@@ -467,6 +467,12 @@ brk_recover (const thchar_t *text, int len, int pos,
         return rh->recov;
 
     for (p = pos; p < len; ++p) {
+        if (text[p] == '.' && p + 1 < len) {
+            // Always recover after a period.
+            rh->pos = pos;
+            rh->recov = p+1;
+            return p+1;
+        }
         if (brkpos_hints[p]) {
             n = brk_recover_try (text + p, len - p, brkpos_hints + p,
                                  brk_pos, RECOVERED_WORDS);

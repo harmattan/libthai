@@ -1,3 +1,9 @@
+libthai (0.1.17) unstable; urgency=low
+
+  * Test patch from NB#280665 comment 202
+
+ -- Stephan Binner <stephan.binner@basyskom.com>  Thu, 02 Feb 2012 13:17:00 +0100
+
 libthai (0.1.16) unstable; urgency=low
 
   * Fixes: NB#290640 - Libthai and libdatrie must be added to all the configurations providing Thai language

@@ -129,8 +129,12 @@ th_brk (const thchar_t *s, int pos[], size_t n)
         op = brk_op (effective_class, new_class);
 
         if (BRK_CLASS_THAI == prev_class) {
-            /* break chunk if leaving Thai chunk */
-            if (BRK_CLASS_THAI != new_class) {
+            if (BRK_CLASS_THAI == new_class && op != BRK_OP_INDIRECT)
+                op = BRK_OP_INDIRECT; //if the previous letter was a fullstop, this might not be indirect.  So force to indirect.
+            // Treat a fullstop following thai as thai also for the purpose of word breaking etc.
+            // This is to handle words like "ก.พ."
+            if (BRK_CLASS_THAI != new_class && '.' != *p) {
+                /* break chunk if leaving Thai chunk */
                 int n_brk, i;
 
                 n_brk = brk_maximal_do (thai_chunk, p - thai_chunk,
@@ -171,7 +175,13 @@ th_brk (const thchar_t *s, int pos[], size_t n)
             break;
         }
 
-        prev_class = new_class;
+        // If we have thai text followed by a fullstop, keep the prev_class
+        // as thai.  This is to handle strings like "ม.ค." as a single word.
+        // But note that we allow the effective_class to be changed in this case.
+        // This is to handle strings like ม.112 which shouldn't have a word break.
+        if (!(prev_class == BRK_CLASS_THAI && '.' == *p))
+            prev_class = new_class;
+
         if (BRK_OP_ALLOWED == op || BRK_CLASS_SPACE != new_class)
             effective_class = new_class;
     }
