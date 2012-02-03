@@ -1,6 +1,12 @@
+libthai (0.1.16-0maemo2) unstable; urgency=low
+
+  * Add a dictionary of common acryonyms with multiple fullstops (NB#280665 comment 206)
+
+ -- Stephan Binner <stephan.binner@basyskom.com>  Fri, 03 Feb 2012 09:37:00 +0100
+
 libthai (0.1.16-0maemo1) unstable; urgency=low
 
-  * Test patch from NB#280665 comment 202
+  * Test patch handle "." in thaifrom (NB#280665 comment 202)
 
  -- Stephan Binner <stephan.binner@basyskom.com>  Thu, 02 Feb 2012 13:17:00 +0100
 

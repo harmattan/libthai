@@ -10,6 +10,7 @@ dictdata_DATA =
 endif
 
 TDICT_SRC = 				\
+	$(srcdir)/tdict-acronyms.txt	\
 	$(srcdir)/tdict-common.txt	\
 	$(srcdir)/tdict-collection.txt	\
 	$(srcdir)/tdict-district.txt	\
