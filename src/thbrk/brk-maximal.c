@@ -451,6 +451,30 @@ brk_root_pool (int pos_size)
     return pool;
 }
 
+static int
+find_last_fullstop(const thchar_t *text, int len, int pos,
+                   const char *brkpos_hints, RecovHist *rh)
+{
+
+    int p, numLetters = 0;
+    int found = 0;
+
+    /* Look for an abbreviation, such as: "สนง.สสอ." 
+     * Search the next 4 letters for a period, and if we find one
+     * then set the next letter to be the recovery position, then
+     * repeat until we cannot find a period. */
+    for (p = pos; p < len && numLetters < 4; ++p) {
+        if (text[p] == '.') {
+            rh->recov = p+1;
+            numLetters = 0;
+            found = 1;
+        } else {
+            ++numLetters;
+        }
+    }
+    return found;
+}
+
 #define RECOVERED_WORDS 3
 
 static int
@@ -466,14 +490,20 @@ brk_recover (const thchar_t *text, int len, int pos,
     if (rh->pos == pos)
         return rh->recov;
 
+    /* Look for an abbreviation, such as: "สนง.สสอ." */
+    if (find_last_fullstop(text, len, pos, brkpos_hints, rh)) {
+        rh->pos = pos;
+        return rh->recov;
+    }
+
     for (p = pos; p < len; ++p) {
-        if (text[p] == '.' && p + 1 < len) {
-            // Always recover after a period.
+        if (text[p] == '.') {
+            /* Always recover after a fullstop.  Check the next few letters for another fullstop. */
             rh->pos = pos;
             rh->recov = p+1;
-            return p+1;
-        }
-        if (brkpos_hints[p]) {
+            (void) find_last_fullstop(text, len, p+1, brkpos_hints, rh);
+            return rh->recov;
+        } else if (brkpos_hints[p]) {
             n = brk_recover_try (text + p, len - p, brkpos_hints + p,
                                  brk_pos, RECOVERED_WORDS);
             if (n == RECOVERED_WORDS
