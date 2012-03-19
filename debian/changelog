@@ -1,20 +1,9 @@
 libthai (0.1.16+0maemo3) unstable; urgency=low
 
-  * Replace patch to handle "." with better version (NB#280665 comment 220)
+  * New version
+  * Fixes: NB#299185 - H-AF_MeeGo Touch Framework- Inconsistent and bad layout of Vietnamese characters
 
- -- Stephan Binner <stephan.binner@basyskom.com>  Mon, 06 Feb 2012 14:01:00 +0100
-
-libthai (0.1.16+0maemo2) unstable; urgency=low
-
-  * Add a dictionary of common acryonyms with multiple fullstops (NB#280665 comment 206)
-
- -- Stephan Binner <stephan.binner@basyskom.com>  Fri, 03 Feb 2012 09:37:00 +0100
-
-libthai (0.1.16+0maemo1) unstable; urgency=low
-
-  * Test patch handle "." in thaifrom (NB#280665 comment 202)
-
- -- Stephan Binner <stephan.binner@basyskom.com>  Thu, 02 Feb 2012 13:17:00 +0100
+ -- Adrian Yanes <ext-adrian.yanes@nokia.com>  Mon, 19 Mar 2012 10:01:16 +0200
 
 libthai (0.1.16) unstable; urgency=low
 
